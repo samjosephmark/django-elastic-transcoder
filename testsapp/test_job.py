@@ -3,18 +3,16 @@ import json
 
 from django.test import TestCase
 from django.dispatch import receiver
-from django.db import models
 from django.contrib.contenttypes.models import ContentType
 
 from dj_elastictranscoder.models import EncodeJob
 from dj_elastictranscoder.signals import (
-    transcode_onprogress, 
-    transcode_onerror, 
+    transcode_onprogress,
+    transcode_onerror,
     transcode_oncomplete
 )
 
 from .models import Item
-
 
 
 PROJECT_ROOT = os.path.dirname(os.path.realpath(__file__))
@@ -62,7 +60,6 @@ class SNSNotificationTest(TestCase):
     def test_initial(self):
         job = EncodeJob.objects.get(id=self.job_id)
         self.assertEqual(job.state, 0)
-        
 
     def test_onprogress(self):
         with open(os.path.join(FIXTURE_DIRS, 'onprogress.json')) as f:
@@ -85,7 +82,6 @@ class SNSNotificationTest(TestCase):
 
         job = EncodeJob.objects.get(id=self.job_id)
         self.assertEqual(job.state, 2)
-
 
     def test_oncomplete(self):
         with open(os.path.join(FIXTURE_DIRS, 'oncomplete.json')) as f:
@@ -133,7 +129,6 @@ class SignalTest(TestCase):
         self.assertEqual('1396802241671-jkmme8', job.id)
         self.assertEqual('Progress', job.message)
         self.assertEqual(1, job.state)
-
 
     def test_transcode_onerror(self):
         """

@@ -1,8 +1,7 @@
-try:
-    from django.conf.urls import url, patterns
-except ImportError:
-    from django.conf.urls.defaults import url, patterns  # Support for Django < 1.4
+from django.conf.urls import url
 
-urlpatterns = patterns('dj_elastictranscoder.views',
-    url(r'^endpoint/$', 'endpoint'),
-)
+from .views import endpoint
+
+urlpatterns = [
+    url(r'^endpoint/$', endpoint, name='endpoint'),
+]

@@ -11,6 +11,7 @@ from .signals import (
     transcode_oncomplete
 )
 
+
 @csrf_exempt
 def endpoint(request):
     """
@@ -21,7 +22,6 @@ def endpoint(request):
         data = json.loads(request.read().decode('utf-8'))
     except ValueError:
         return HttpResponseBadRequest('Invalid JSON')
-
 
     # handle SNS subscription
     if data['Type'] == 'SubscriptionConfirmation':
@@ -34,7 +34,6 @@ def endpoint(request):
         mail_admins('Please confirm SNS subscription', subscribe_body)
         return HttpResponse('OK')
 
-    
     #
     try:
         message = json.loads(data['Message'])

@@ -16,4 +16,4 @@ INSTALLED_APPS = [
 SITE_ID = 1
 DEBUG = False
 ROOT_URLCONF = ''
-SECRET_KEY='test'
+SECRET_KEY = 'test'

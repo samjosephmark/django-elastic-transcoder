@@ -15,9 +15,8 @@ setup(
     include_package_data=True,
     zip_safe=False,
     install_requires=[
-        "django >= 1.3, < 1.9",
+        "django >= 1.8",
         "boto3 >= 1.1",
-        "South >= 0.8",
     ],
     classifiers=[
         "Intended Audience :: Developers",
@@ -27,6 +26,8 @@ setup(
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
         "Topic :: Software Development :: Libraries :: Python Modules",
         "Environment :: Web Environment",
         "Framework :: Django",
