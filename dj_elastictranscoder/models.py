@@ -1,8 +1,10 @@
 from django.db import models
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes.fields import GenericForeignKey
+from django.utils.encoding import python_2_unicode_compatible
 
 
+@python_2_unicode_compatible
 class EncodeJob(models.Model):
     STATE_CHOICES = (
         (0, 'Submitted'),
@@ -19,3 +21,6 @@ class EncodeJob(models.Model):
     message = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.id
