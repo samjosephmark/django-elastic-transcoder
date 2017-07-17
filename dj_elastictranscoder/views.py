@@ -8,7 +8,8 @@ from .models import EncodeJob
 from .signals import (
     transcode_onprogress,
     transcode_onerror,
-    transcode_oncomplete
+    transcode_oncomplete,
+    transcode_onwarning
 )
 
 
@@ -57,10 +58,17 @@ def endpoint(request):
         transcode_oncomplete.send(sender=None, job=job, message=message)
     elif message['state'] == 'ERROR':
         job = EncodeJob.objects.get(pk=message['jobId'])
-        job.message = message['messageDetails']
+        job.message = message.get('messageDetails', json.dumps(message))
         job.state = 2
         job.save()
 
         transcode_onerror.send(sender=None, job=job, message=message)
+    elif message['state'] == 'WARNING':
+        job = EncodeJob.objects.get(pk=message['jobId'])
+        job.message = json.dumps(message)
+        job.state = 3
+        job.save()
+
+        transcode_onwarning.send(sender=None, job=job, message=message)
 
     return HttpResponse('Done')
